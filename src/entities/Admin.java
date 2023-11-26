@@ -10,7 +10,8 @@ public class Admin extends User {
         this.daoAdmin = new DAOAdmin(); // Instantiate DAOAdmin
     }
 
-    // Method to add a student
+
+    // Methodo para agregar student Por ahi pasar el formulario omo objeto, y no tantos parametros.
     public void addStudent(String password, String firstName, String lastName) {
         daoAdmin.addStudent(password, firstName, lastName);
         System.out.println("Student added: " + firstName + " " + lastName);
@@ -20,6 +21,8 @@ public class Admin extends User {
         return daoAdmin.generalReport();
     }
 
+
+
     public void addCourse(int courseId, String name, int capacity, int cost, int passingGrade, int professorId) {
         daoAdmin.addCourse(courseId, name, capacity, cost, passingGrade, professorId);
     }
@@ -27,7 +30,7 @@ public class Admin extends User {
 
 
 
-    //////////////////////////////////REVEER, POR AHI CREAR OBJETO CURSO PARA SACR LA DATA/////////////////////////////////////////////
+    //////////////////////////////////REVEER, POR AHI CREAR OBJETO CURSO PARA SACAR LA DATA/////////////////////////////////////////////
 
     public void courseReport() {
         daoAdmin.courseReport();

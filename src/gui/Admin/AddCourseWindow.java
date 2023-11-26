@@ -52,6 +52,7 @@ public class AddCourseWindow extends JFrame {
         JButton addButton = new JButton("Add");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Crear el objeto course aca para despues pasarlo como parametro al addCourse
                 int courseId = Integer.parseInt(courseIdField.getText());
                 String name = nameField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
@@ -59,6 +60,8 @@ public class AddCourseWindow extends JFrame {
                 int passingGrade = Integer.parseInt(passingGradeField.getText());
                 int professorId = Integer.parseInt(professorIdField.getText());
 
+
+                // Pasar el objeto course creado.
                 admin.addCourse(courseId, name, capacity, cost, passingGrade, professorId);
 
                 // Display success message

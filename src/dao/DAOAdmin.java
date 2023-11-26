@@ -7,11 +7,9 @@
     import entities.Course;
 
 
-    import dao.DatabaseConnection;
-
     import javax.swing.*;
 
-    public class DAOAdmin {
+    public class DAOAdmin implements IDAOAdmin {
         private Connection connection;
 
         public DAOAdmin() {
@@ -50,7 +48,7 @@
             }
         }
 
-        private int generateUID() {
+        public int generateUID(){
             int uid = 0;
             String query = "SELECT MAX(UID) FROM USERS";
             try (PreparedStatement statement = connection.prepareStatement(query);
@@ -118,7 +116,7 @@
 
 
     //////////////////////////////////REVEER, POR AHI CREAR OBJETO CURSO PARA SACR LA DATA/////////////////////////////////////////////
-    public void courseReport() {
+        public void courseReport() {
         List<Course> courses = new ArrayList<>();
 
         String query = "SELECT C.C_ID, C.NAME, COUNT(T.T_ID), SUM(C.COST) " +

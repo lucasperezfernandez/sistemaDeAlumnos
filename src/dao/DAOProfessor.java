@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DAOProfessor {
+public class DAOProfessor implements IDAOProfessor {
     private Connection connection;
 
-    public DAOProfessor() {
+    public DAOProfessor(){
         try {
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/Desktop/UP/Labo 1/SistemaDeAlumnos", "admin", "admin");
@@ -21,7 +21,7 @@ public class DAOProfessor {
         }
     }
 
-    // Add additional functions specific to professor operations if needed
+
     public void addGrade(int grade, int studentId, int professorId) {
         String query = "UPDATE TUITION SET GRADE = ? WHERE  UID = ? AND C_ID = ? AND GRADE = 0";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -41,8 +41,6 @@ public class DAOProfessor {
             e.printStackTrace();
         }
     }
-
-
 
 
 

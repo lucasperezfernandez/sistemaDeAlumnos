@@ -3,7 +3,7 @@ package dao;
 import javax.swing.*;
 import java.sql.*;
 
-public class DAOStudent {
+public class DAOStudent implements IDAOStudent {
     private Connection connection;
 
     public DAOStudent() {

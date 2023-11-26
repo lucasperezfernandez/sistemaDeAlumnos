@@ -7,7 +7,7 @@ import entities.User;
 
 import java.sql.*;
 
-public class DAOUser {
+public class DAOUser implements IDAOUser {
     private Connection connection;
 
     public DAOUser() {
