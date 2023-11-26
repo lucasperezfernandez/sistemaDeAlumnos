@@ -1,11 +1,11 @@
 package entities;
 
 public class User {
-    Integer Uid;
-    String password;
-    String firstName;
-    String lastName;
-    String rol;
+    private Integer Uid;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String rol;
 
 
 
