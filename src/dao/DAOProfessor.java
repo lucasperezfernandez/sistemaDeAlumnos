@@ -23,6 +23,7 @@ public class DAOProfessor implements IDAOProfessor {
 
 
     public void addGrade(int grade, int studentId, int professorId) {
+        //Query
         String query = "UPDATE TUITION SET GRADE = ? WHERE  UID = ? AND C_ID = ? AND GRADE = 0";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, grade);
@@ -45,6 +46,7 @@ public class DAOProfessor implements IDAOProfessor {
 
 
     public void addInfo(String information, int professorId) {
+        //Query
         String query = "UPDATE COURSE SET INFORMATION = ? WHERE PROFESSOR_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, information);

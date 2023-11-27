@@ -5,6 +5,7 @@
     import java.util.List;
 
     import entities.Course;
+    import entities.Form;
 
 
     import javax.swing.*;
@@ -24,19 +25,18 @@
             }
         }
 
-        public void addStudent(String password, String firstName, String lastName) {
-            // Generate UID for the new student
+        public void addStudent(Form form) {
+            // Genero el uid
             int uid = generateUID();
 
-            // Capitalize first name and last name
-            String capitalizedFirstName = capitalizeString(firstName);
-            String capitalizedLastName = capitalizeString(lastName);
+            String capitalizedFirstName = capitalizeString(form.getFirstName());
+            String capitalizedLastName = capitalizeString(form.getLastName());
 
-            // Prepare SQL statement
+            // Query
             String query = "INSERT INTO USERS (UID, PASSWORD, FIRST_NAME, LAST_NAME, ROL) VALUES (?, ?, ?, ?, 'STUDENT')";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, uid);
-                statement.setString(2, password.toUpperCase());
+                statement.setString(2, form.getPassword().toUpperCase());
                 statement.setString(3, capitalizedFirstName.toUpperCase());
                 statement.setString(4, capitalizedLastName.toUpperCase());
 
@@ -72,7 +72,7 @@
         public double generalReport() {
             double sum = 0;
 
-            // Prepare SQL statement
+            // QUery
             String query = "SELECT SUM(C.COST) FROM COURSE C JOIN TUITION T ON C.C_ID = T.C_ID WHERE T.GRADE = 0";
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(query)) {
@@ -86,19 +86,19 @@
             return sum;
         }
 
-        public void addCourse(int courseId, String name, int capacity, int cost, int passingGrade, int professorId) {
+        public void addCourse(Form form) {
             String query = "INSERT INTO COURSE (C_ID, NAME, CAPACITY, COST, PASSING_GRADE, INFORMATION, PROFESSOR_ID) " +
                     "SELECT ?, ?, ?, ?, ?, '', ? " +
                     "FROM USERS " +
                     "WHERE UID = ? AND ROL = 'PROFESSOR'";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, courseId);
-                statement.setString(2, name);
-                statement.setInt(3, capacity);
-                statement.setInt(4, cost);
-                statement.setInt(5, passingGrade);
-                statement.setInt(6, professorId);
-                statement.setInt(7, professorId);
+                statement.setInt(1, form.getCourseId());
+                statement.setString(2, form.getName());
+                statement.setInt(3, form.getCapacity());
+                statement.setInt(4, form.getCost());
+                statement.setInt(5, form.getPassingGrade());
+                statement.setInt(6, form.getProfessorId());
+                statement.setInt(7, form.getProfessorId());
 
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
@@ -113,14 +113,14 @@
 
 
 
-
-
-    //////////////////////////////////REVEER, POR AHI CREAR OBJETO CURSO PARA SACR LA DATA/////////////////////////////////////////////
+        //******************************* Por ahi crear un objeto curso y guardarlo ahi en vez de hacer esto******************************************//
         public void courseReport() {
         List<Course> courses = new ArrayList<>();
 
+
+
         String query = "SELECT C.C_ID, C.NAME, COUNT(T.T_ID), SUM(C.COST) " +
-                "FROM COURSE C LEFT JOIN TUITION T ON C.C_ID = T.C_ID AND T.GRADE = 0 " +
+                "FROM COURSE C LEFT JOIN TUITION T ON C.C_ID = T.C_ID WHERE T.GRADE = 0 " +
                 "GROUP BY C.C_ID, C.NAME";
 
         try (Statement statement = connection.createStatement();
@@ -138,7 +138,7 @@
             e.printStackTrace();
         }
 
-        // Prepare the course report message
+        // Como sale impresa la data de los cursos
         StringBuilder messageBuilder = new StringBuilder();
         for (Course course : courses) {
             messageBuilder.append("Course ID: ").append(course.getC_ID()).append("\n");
@@ -148,16 +148,8 @@
             messageBuilder.append("------------------------------").append("\n");
         }
 
-        // Show the course report in a popup message
+        // Reporte en popup
         JOptionPane.showMessageDialog(null, messageBuilder.toString(), "Course Report", JOptionPane.INFORMATION_MESSAGE);
     }
-
-        // Define a custom class to hold the course report data
-
-
-    ///////////////////////////////////////////////////////////////////////////////
-
-
-
 
     }

@@ -1,6 +1,8 @@
 package gui.Admin;
 
 import entities.Admin;
+import entities.Form;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +54,9 @@ public class AddCourseWindow extends JFrame {
         JButton addButton = new JButton("Add");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+
+
                 // Crear el objeto course aca para despues pasarlo como parametro al addCourse
                 int courseId = Integer.parseInt(courseIdField.getText());
                 String name = nameField.getText();
@@ -61,13 +66,17 @@ public class AddCourseWindow extends JFrame {
                 int professorId = Integer.parseInt(professorIdField.getText());
 
 
-                // Pasar el objeto course creado.
-                admin.addCourse(courseId, name, capacity, cost, passingGrade, professorId);
+                Form newForm = new Form("x", "x", "x", courseId, name, capacity, cost, passingGrade, professorId);
 
+
+                // Pasar el objeto course creado.
+                //Funcion vieja que pasaba parametros pero no objeto.
+                //admin.addCourse(courseId, name, capacity, cost, passingGrade, professorId);
+                admin.addCourse(newForm);
                 // Display success message
                 JOptionPane.showMessageDialog(AddCourseWindow.this, "Request taken");
 
-                // Clear the form fields
+                // Limpio los fields de texto
                 courseIdField.setText("");
                 nameField.setText("");
                 capacityField.setText("");

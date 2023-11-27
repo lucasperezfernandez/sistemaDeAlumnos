@@ -92,10 +92,10 @@ public class AdminWindow extends JFrame {
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Add functionality for the Exit button
-                dispose(); // Close the current window
+
+                dispose(); // Cierro la ventana actual
                 LoginUI loginUI = new LoginUI();
-                loginUI.setVisible(true); // Open the LoginUI window
+                loginUI.setVisible(true); // Abro el window del LoginUI
             }
         });
         panel.add(exitButton);

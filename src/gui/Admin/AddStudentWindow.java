@@ -1,6 +1,7 @@
 package gui.Admin;
 
 import entities.Admin;
+import entities.Form;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,13 +47,16 @@ public class AddStudentWindow extends JFrame {
                 String firstName = firstNameTextField.getText();
                 String lastName = lastNameTextField.getText();
 
-                // Call the addStudent method of the Admin class with the retrieved parameters
-                admin.addStudent(password, firstName, lastName);
 
-                // Display a message to indicate that the student has been added
-                JOptionPane.showMessageDialog(AddStudentWindow.this, "Student added successfully!");
+                Form newForm = new Form(password, firstName, lastName, 1, "x", 1, 1, 1, 1);
 
-                // Clear the text fields and password field for the next student entry
+                // llamo el metodo de Admin
+                admin.addStudent(newForm);
+
+
+                JOptionPane.showMessageDialog(AddStudentWindow.this, "Student added successfully");
+
+                // Limpio los fields
                 passwordField.setText("");
                 firstNameTextField.setText("");
                 lastNameTextField.setText("");
@@ -68,7 +72,7 @@ public class AddStudentWindow extends JFrame {
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
+                dispose(); // Cerrar la ventana actual
             }
         });
 
