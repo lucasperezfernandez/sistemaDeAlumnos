@@ -1,5 +1,7 @@
 package dao;
 
+import entities.Form;
+
 public interface IDAOAdmin<T >{
     /* Ejemplos tipo clase
     public void save(T element) throws DAOException;
@@ -10,9 +12,7 @@ public interface IDAOAdmin<T >{
     */
 
     //Agregar un estudiante
-    void addStudent(String password, String firstName, String lastName) throws DAOException;
-
-
+    void addStudent(Form form ) throws DAOException;
 
     //Generar ID al crear usuario
     int generateUID();
@@ -21,7 +21,7 @@ public interface IDAOAdmin<T >{
     double generalReport();
 
     //Crear un curso.
-    void addCourse(int courseId, String name, int capacity, int cost, int passingGrade, int professorId);
+    void addCourse(Form form);
 
     //Reporte por cursos particualres
     void courseReport();

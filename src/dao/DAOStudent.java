@@ -18,7 +18,6 @@ public class DAOStudent implements IDAOStudent {
         }
     }
 
-    // Add additional functions specific to student operations if needed
 
     public void enroll(int courseId, int uid) {
         String selectCourseCapacityQuery = "SELECT CAPACITY FROM COURSE WHERE C_ID = ?";
@@ -31,7 +30,7 @@ public class DAOStudent implements IDAOStudent {
              PreparedStatement selectGradeStatement = connection.prepareStatement(selectStudentGradeQuery);
              PreparedStatement insertTuitionStatement = connection.prepareStatement(insertTuitionQuery)) {
 
-            // Check condition 1: Count of T_ID with Uid = Class Uid and C_id = the one introduced in the parameter where GRADE = 0 must be < 3
+            // Condicion 1, que el usuario no este inscripto en 3 cursos
             selectEnrollmentsStatement.setInt(1, uid);
             ResultSet enrollmentsResult = selectEnrollmentsStatement.executeQuery();
             if (enrollmentsResult.next()) {
@@ -43,21 +42,22 @@ public class DAOStudent implements IDAOStudent {
                 }
             }
 
-            // Check condition 2: If the Uid from the user is already in the table related to the C_ID from the parameter,
-            // the grade has to be > 0 and < than the PASSING_GRADE from the table COURSE with the same C_ID.
+
+            // Condicion 2: Si el usuario ya esta registrado en el curso ingresado, la nota tienen que ser distinta de 0 o menor a la nota para pasar (Recurso)
             selectGradeStatement.setInt(1, uid);
             selectGradeStatement.setInt(2, courseId);
             ResultSet gradeResult = selectGradeStatement.executeQuery();
             if (gradeResult.next()) {
                 int grade = gradeResult.getInt(1);
-                if (grade > 0) {
-                    System.out.println("Enrollment failed. You have already passed this course.");
-                    JOptionPane.showMessageDialog(null, "Enrollment failed. You have already passed this course.", "Enrollment", JOptionPane.ERROR_MESSAGE);
+                if (grade >= 0) {
+                    System.out.println("Enrollment failed. You have already passed this course or have a grade of 0.");
+                    JOptionPane.showMessageDialog(null, "Enrollment failed. You have already passed this course or have a grade of 0.", "Enrollment", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
 
-            // Check condition 3: Count of t_id with grade = 0 related to that C_ID has to be < than CAPACITY from the table COURSE
+
+            // Condicion 3: Revisar que el curso no haya llegado a su capacidad maxima de alumnos.
             selectCapacityStatement.setInt(1, courseId);
             ResultSet capacityResult = selectCapacityStatement.executeQuery();
             if (capacityResult.next()) {
@@ -69,7 +69,7 @@ public class DAOStudent implements IDAOStudent {
                 }
             }
 
-            // Insert the enrollment
+            
             String selectMaxTuitionIdQuery = "SELECT MAX(T_ID) FROM TUITION";
             PreparedStatement selectMaxTuitionIdStatement = connection.prepareStatement(selectMaxTuitionIdQuery);
             ResultSet maxTuitionIdResult = selectMaxTuitionIdStatement.executeQuery();

@@ -5,16 +5,16 @@ import dao.DAOAdmin;
 public class Admin extends User {
     private DAOAdmin daoAdmin;
 
-    // Constructor for the Admin class
+    // Constructor
     public Admin() {
-        this.daoAdmin = new DAOAdmin(); // Instantiate DAOAdmin
+        this.daoAdmin = new DAOAdmin(); // Instancia DAOAdmin
     }
 
 
-    // Methodo para agregar student Por ahi pasar el formulario omo objeto, y no tantos parametros.
-    public void addStudent(String password, String firstName, String lastName) {
-        daoAdmin.addStudent(password, firstName, lastName);
-        System.out.println("Student added: " + firstName + " " + lastName);
+    // Metodo para agregar estudiante. Por ahi pasar el formulario omo objeto, y no tantos parametros.
+    public void addStudent(Form form) {
+        daoAdmin.addStudent(form);
+        System.out.println("Student added: " + form.getFirstName() + " " + form.getLastName());
     }
 
     public double generalReport() {
@@ -23,10 +23,10 @@ public class Admin extends User {
 
 
 
-    public void addCourse(int courseId, String name, int capacity, int cost, int passingGrade, int professorId) {
-        daoAdmin.addCourse(courseId, name, capacity, cost, passingGrade, professorId);
-    }
 
+    public void addCourse(Form form) {
+        daoAdmin.addCourse(form);
+    }
 
 
 
@@ -36,5 +36,5 @@ public class Admin extends User {
         daoAdmin.courseReport();
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

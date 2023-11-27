@@ -28,16 +28,16 @@ public class LoginUI extends JFrame {
         setSize(300, 200);
         setLocationRelativeTo(null);
 
-        // Create ID field
+
         idField = new JTextField();
 
-        // Create password field
+
         passwordField = new JPasswordField();
 
-        // Create login button
+
         JButton loginButton = new JButton("Login");
 
-        // Set login action
+
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int id = 0;
@@ -53,7 +53,7 @@ public class LoginUI extends JFrame {
             }
         });
 
-        // Add components to the UI
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
         panel.add(new JLabel("ID:"));
