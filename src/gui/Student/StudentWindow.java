@@ -39,13 +39,14 @@ public class StudentWindow extends JFrame {
             }
         });
 
-//        JButton myEnrollmentsButton = new JButton("My Enrollments");
-//        myEnrollmentsButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//
-//                JOptionPane.showMessageDialog(StudentWindow.this, "My Enrollments button clicked");
-//            }
-//        });
+
+        JButton myInscriptionsButton = new JButton("My Inscriptions");
+        myInscriptionsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Call the inscriptionsReport method of the Student class
+                student.inscriptionsReport();
+            }
+        });
 
         JButton logoffButton = new JButton("Log Off");
         logoffButton.addActionListener(new ActionListener() {
@@ -61,8 +62,13 @@ public class StudentWindow extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 1));
         buttonPanel.add(enrollButton);
-//        buttonPanel.add(myEnrollmentsButton);
+        buttonPanel.add(myInscriptionsButton);
         buttonPanel.add(logoffButton);
+
+        panel.add(buttonPanel, BorderLayout.CENTER);
+
+        getContentPane().add(panel);
+
 
         panel.add(buttonPanel, BorderLayout.CENTER);
 
