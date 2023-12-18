@@ -2,6 +2,12 @@ package dao;
 
 import javax.swing.*;
 import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DAOStudent implements IDAOStudent {
     private Connection connection;
@@ -94,4 +100,41 @@ public class DAOStudent implements IDAOStudent {
             }
         }
     }
+
+
+    public void inscriptionsReport(int uid) {
+        List<String> inscriptionList = inscriptions(uid);
+
+        // Como se imprime la lista de inscripciones
+        StringBuilder messageBuilder = new StringBuilder();
+        for (String inscription : inscriptionList) {
+            messageBuilder.append(inscription).append("\n");
+            messageBuilder.append("------------------------------").append("\n");
+        }
+
+        // Reporte en popup
+        JOptionPane.showMessageDialog(null, messageBuilder.toString(), "Inscriptions Report", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public List<String> inscriptions(int uid) {
+        List<String> inscriptionList = new ArrayList<>();
+        String selectInscriptionsQuery = "SELECT C_ID, GRADE FROM TUITION WHERE Uid = ?";
+
+        try (PreparedStatement selectInscriptionsStatement = connection.prepareStatement(selectInscriptionsQuery)) {
+            selectInscriptionsStatement.setInt(1, uid);
+            ResultSet inscriptionResult = selectInscriptionsStatement.executeQuery();
+
+            while (inscriptionResult.next()) {
+                int courseId = inscriptionResult.getInt("C_ID");
+                int grade = inscriptionResult.getInt("GRADE");
+                inscriptionList.add("Course ID: " + courseId + ", Grade: " + grade);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inscriptionList;
+    }
+
 }
