@@ -1,22 +1,25 @@
 package entities;
 
-import dao.DAOAdmin;
-
+import dao.DAOException;
+import dao.IDAOAdmin;
 public class Admin extends User {
-    private DAOAdmin daoAdmin;
+    private final IDAOAdmin daoAdmin;
 
     // Constructor
-    public Admin() {
-        this.daoAdmin = new DAOAdmin(); // Instancia DAOAdmin
+    public Admin(IDAOAdmin daoAdmin) {
+        this.daoAdmin = daoAdmin;
     }
 
 
-    // Metodo para agregar estudiante. Por ahi pasar el formulario omo objeto, y no tantos parametros.
     public void addStudent(Form form) {
-        daoAdmin.addStudent(form);
-        System.out.println("Student added: " + form.getFirstName() + " " + form.getLastName());
+        try {
+            daoAdmin.addStudent(form);
+            System.out.println("Student added: " + form.getFirstName() + " " + form.getLastName());
+        } catch (DAOException e) {
+            // Manejo la exception aca mandando mensaje de error.
+            System.err.println("Error adding student: " + e.getMessage());
+        }
     }
-
     public double generalReport() {
         return daoAdmin.generalReport();
     }

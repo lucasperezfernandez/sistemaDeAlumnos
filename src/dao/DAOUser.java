@@ -7,7 +7,18 @@ import entities.User;
 
 import java.sql.*;
 
+
+// Testing
+
+import dao.DAOStudent;
+import entities.Student;
+import dao.DAOAdmin;
+import entities.Admin;
+
+
 public class DAOUser implements IDAOUser {
+    DAOStudent daoStudent = new DAOStudent();
+    DAOAdmin daoAdmin = new DAOAdmin();
     private Connection connection;
 
     public DAOUser() {
@@ -59,7 +70,7 @@ public class DAOUser implements IDAOUser {
         User user = null;
         if (rol != null) {
             if (rol.equalsIgnoreCase("Admin")) {
-                Admin admin = new Admin();
+                Admin admin = new Admin(daoAdmin);
                 admin.setUid(id);
                 admin.setPassword(password);
                 admin.setRol(rol);
@@ -75,7 +86,7 @@ public class DAOUser implements IDAOUser {
                 professor.setLastName(lastName);
                 user = professor;
             } else if (rol.equalsIgnoreCase("Student")) {
-                Student student = new Student();
+                Student student = new Student(daoStudent);
                 student.setUid(id);
                 student.setPassword(password);
                 student.setRol(rol);

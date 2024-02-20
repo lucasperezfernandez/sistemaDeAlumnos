@@ -1,5 +1,7 @@
 package dao;
 
+import entities.Course;
+
 import javax.swing.*;
 import java.sql.*;
 import java.sql.PreparedStatement;
@@ -49,7 +51,7 @@ public class DAOStudent implements IDAOStudent {
             }
 
 
-            // Condicion 2: Si el usuario ya esta registrado en el curso ingresado, la nota tienen que ser distinta de 0 o menor a la nota para pasar (Recurso)
+            // Condicion 2 si el usuario ya esta registrado en el curso ingresado, la nota tienen que ser distinta de 0 o menor a la nota para pasar (recurso)
             selectGradeStatement.setInt(1, uid);
             selectGradeStatement.setInt(2, courseId);
             ResultSet gradeResult = selectGradeStatement.executeQuery();
@@ -63,7 +65,7 @@ public class DAOStudent implements IDAOStudent {
             }
 
 
-            // Condicion 3: Revisar que el curso no haya llegado a su capacidad maxima de alumnos.
+            // Condicion 3 que el curso no haya llegado a su capacidad maxima de alumnos.
             selectCapacityStatement.setInt(1, courseId);
             ResultSet capacityResult = selectCapacityStatement.executeQuery();
             if (capacityResult.next()) {

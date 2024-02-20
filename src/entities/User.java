@@ -3,21 +3,19 @@ package entities;
 public class User {
 
 
-    private Integer Uid;
+    private int Uid;
     private String password;
     private String firstName;
     private String lastName;
     private String rol;
 
 
-
-
     //Getters Setters
 
 
-    public Integer getUid() {return Uid;}
+    public int getUid() {return Uid;}
 
-    public void setUid(Integer uid) {Uid = uid;}
+    public void setUid(int  uid) {Uid = uid;}
 
     public String getPassword() { return password;};
 
